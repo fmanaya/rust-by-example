@@ -1,50 +1,49 @@
-# Comments
+# Comentarios
 
-Any program requires comments, and Rust supports
-a few different varieties:
+Cualquier programa necesita comentarios, y Rust los contempla en varias formas:
 
-* *Regular comments* which are ignored by the compiler:
+
+* *Comentarios normales* que son ignorados por el compilador:
    * `// Line comments which go to the end of the line.`
    * `/* Block comments which go to the closing delimiter. */`
-* *Doc comments* which are parsed into HTML library
-  [documentation][docs]:
+* *Comentarios de documentación* que se transforman con la libreria HTML de 
+  [documentación][docs]:
    * `/// Generate library docs for the following item.`
    * `//! Generate library docs for the enclosing item.`
 
 ```rust,editable
 fn main() {
-    // This is an example of a line comment
-    // There are two slashes at the beginning of the line
-    // And nothing written inside these will be read by the compiler
+    // Este es un ejemplo de comentario de linea
+    // Hay dos slashes al principio de linea
+    // Y nada escrito despues es leido por el compilador
 
     // println!("Hello, world!");
 
-    // Run it. See? Now try deleting the two slashes, and run it again.
+    // Ejecuta el script. Ves? Ahora intenta borrar los dos slashes y ejecutalo de nuevo.
 
     /* 
-     * This is another type of comment, a block comment. In general,
-     * line comments are the recommended comment style. But
-     * block comments are extremely useful for temporarily disabling
-     * chunks of code. /* Block comments can be /* nested, */ */
-     * so it takes only a few keystrokes to comment out everything
-     * in this main() function. /*/*/* Try it yourself! */*/*/
+     * Este es otro tipo de comentario, comentario de bloque. En general 
+     * los comentarios de línea son los recomendados. Pero los comentarios 
+     * de bloque son muy utiles para desactivar temporalmente trozos de 
+     * código. /* Los comentarios de bloque se pueden /* anidar */ */ asi 
+     * solo nos llevará unos pocas pulsaciones comentar toda esta funcion 
+     * main() /*/*/* Pruebalo tu mismo */*/*/
      */
 
     /*
-    Note: The previous column of `*` was entirely for style. There's
-    no actual need for it.
+    Nota: La anterior columna de `*` es solo por guardar el estilo. Realmente 
+    no es necesario ponerla.
     */
 
-    // You can manipulate expressions more easily with block comments
-    // than with line comments. Try deleting the comment delimiters
-    // to change the result:
+    // Puedes manipular expresiones mas facilmente con comentarios de bloque
+    // que con comentarios de elinea. Prueba a borrar los delimitadores para cambiar el resultado
     let x = 5 + /* 90 + */ 5;
     println!("Is `x` 10 or 100? x = {}", x);
 }
 
 ```
 
-### See also:
+### Ver también:
 
 [Library documentation][docs]
 

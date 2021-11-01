@@ -1,4 +1,4 @@
-# Rust By Example
+# Rust con Ejemplos
 
 [![Build Status][travis-badge]][travis-repo]
 

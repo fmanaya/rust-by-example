@@ -1,75 +1,76 @@
 # Display
 
-`fmt::Debug` hardly looks compact and clean, so it is often advantageous to
-customize the output appearance. This is done by manually implementing
-[`fmt::Display`][fmt], which uses the `{}` print marker. Implementing it
-looks like this:
+`fmt::Debug` no es muy compacto y limpio, por lo que a menudo combiene 
+adaptar la apariencia de la salida. Esto se hace implementando manualmente 
+[`fmt::Display`][fmt], que usa el marcador de impresión `{}`. Implementarlo 
+se ve así:
 
 ```rust
-// Import (via `use`) the `fmt` module to make it available.
+// Importa (via `use`) el módulo `fmt` para tenerlo disponible.
 use std::fmt;
 
-// Define a structure for which `fmt::Display` will be implemented. This is
-// a tuple struct named `Structure` that contains an `i32`.
+// Define una estructura para la cual se implementará `fmt::Display`. Esta 
+// es una estructura de tupla llamada "Structure" que contiene un "i32".
 struct Structure(i32);
 
-// To use the `{}` marker, the trait `fmt::Display` must be implemented
-// manually for the type.
+// Para usar el marcador `{}`, el trait `fmt::Display` debe implementarse 
+// manualmente para el tipo.
+
 impl fmt::Display for Structure {
-    // This trait requires `fmt` with this exact signature.
+    // Este trait requiere `fmt` con esta misma nomenclatura.
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        // Write strictly the first element into the supplied output
-        // stream: `f`. Returns `fmt::Result` which indicates whether the
-        // operation succeeded or failed. Note that `write!` uses syntax which
-        // is very similar to `println!`.
+        // Escribe estrictamente el primer elemento en el flujo de salida 
+        // proporcionado: `f`. Devuelve `fmt::Result`, que indica si la 
+        // operación tuvo éxito o no. Tenga en cuenta que `write!` Usa 
+        // una sintaxis que es muy similar a `println!`.        
         write!(f, "{}", self.0)
     }
 }
 ```
 
-`fmt::Display` may be cleaner than `fmt::Debug` but this presents
-a problem for the `std` library. How should ambiguous types be displayed?
-For example, if the `std` library implemented a single style for all
-`Vec<T>`, what style should it be? Would it be either of these two?
+`fmt::Display` puede ser más limpio que` fmt::Debug` pero presenta
+un problema para la biblioteca `std`. ¿Cómo se deben mostrar los tipos 
+ambiguos? Por ejemplo, si la biblioteca `std` implementó un solo estilo para 
+todos los` Vec <T> `, ¿qué estilo debería ser? ¿Sería alguno de estos dos?
 
-* `Vec<path>`: `/:/etc:/home/username:/bin` (split on `:`)
-* `Vec<number>`: `1,2,3` (split on `,`)
+* `Vec<path>`: `/:/etc:/home/username:/bin` (separar por `:`)
+* `Vec<number>`: `1,2,3` (separat por `,`)
 
-No, because there is no ideal style for all types and the `std` library
-doesn't presume to dictate one. `fmt::Display` is not implemented for `Vec<T>`
-or for any other generic containers. `fmt::Debug` must then be used for these
-generic cases.
+No, porque no existe un estilo ideal para todos los tipos y la biblioteca `std` 
+no pretende imponer uno. `fmt::Display` no está implementado para` Vec<T>` ni 
+para ningún otro contenedor genérico. `fmt::Debug` debe usarse entonces para 
+estos casos genéricos.
 
-This is not a problem though because for any new *container* type which is
-*not* generic,`fmt::Display` can be implemented.
+Sin embargo, esto no es un problema porque para cualquier nuevo tipo de *contenedor* 
+que no sea genérico, se puede implementar `fmt::Display`.
 
 ```rust,editable
-use std::fmt; // Import `fmt`
+use std::fmt; // Importa `fmt`
 
-// A structure holding two numbers. `Debug` will be derived so the results can
-// be contrasted with `Display`.
+// Una estructura que posee dos numeros. `Debug` se derivará para que los
+// resultados se puedan contrastar con `Display`.
 #[derive(Debug)]
 struct MinMax(i64, i64);
 
-// Implement `Display` for `MinMax`.
+// Implementación `Display` para `MinMax`.
 impl fmt::Display for MinMax {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        // Use `self.number` to refer to each positional data point.
+        // Usa `self.number` para referirse por posición a cada punto de datos.
         write!(f, "({}, {})", self.0, self.1)
     }
 }
 
-// Define a structure where the fields are nameable for comparison.
+// Defina una estructura con nombres de campos para poder compararlos.
 #[derive(Debug)]
 struct Point2D {
     x: f64,
     y: f64,
 }
 
-// Similarly, implement `Display` for `Point2D`
+// De forma parecida, implementa `Display` para `Point2D`
 impl fmt::Display for Point2D {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        // Customize so only `x` and `y` are denoted.
+        // Adaptacion para solo indicar `x` e `y`.
         write!(f, "x: {}, y: {}", self.x, self.y)
     }
 }
@@ -94,29 +95,28 @@ fn main() {
     println!("Display: {}", point);
     println!("Debug: {:?}", point);
 
-    // Error. Both `Debug` and `Display` were implemented, but `{:b}`
-    // requires `fmt::Binary` to be implemented. This will not work.
+    // Error. Se implementaron tanto `Debug` como `Display`, pero `{:b}` 
+    // requiere que se implemente `fmt::Binary`. Esto no funcionará.
     // println!("What does Point2D look like in binary: {:b}?", point);
 }
 ```
 
-So, `fmt::Display` has been implemented but `fmt::Binary` has not, and
-therefore cannot be used. `std::fmt` has many such [`traits`][traits] and
-each requires its own implementation. This is detailed further in
-[`std::fmt`][fmt].
+Entonces, `fmt::Display` se ha implementado pero `fmt::Binary` no, y por lo 
+tanto no se puede usar. `std::fmt` tiene muchos [`traits`][traits] y cada 
+uno requiere su propia implementación. Esto se detalla más en [`std::fmt`][fmt].
 
-### Activity
+### Actividad
 
-After checking the output of the above example, use the `Point2D` struct as a
-guide to add a `Complex` struct to the example. When printed in the same
-way, the output should be:
+Después de verificar el resultado del ejemplo anterior, use la estructura `Point2D`
+como guía para agregar una estructura `Complex` al ejemplo. Cuando se imprima de la 
+misma manera, la salida debe ser:
 
 ```txt
 Display: 3.3 + 7.2i
 Debug: Complex { real: 3.3, imag: 7.2 }
 ```
 
-### See also:
+### Ver también:
 
 [`derive`][derive], [`std::fmt`][fmt], [`macros`][macros], [`struct`][structs],
 [`trait`][traits], and [`use`][use]

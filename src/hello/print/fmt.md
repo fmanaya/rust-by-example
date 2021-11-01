@@ -1,38 +1,38 @@
-# Formatting
+# Formateando
 
-We've seen that formatting is specified via a *format string*:
+Hemos visto que el formato se especifica mediante una *cadena de formato*.
 
 * `format!("{}", foo)` -> `"3735928559"`
 * `format!("0x{:X}", foo)` ->
   [`"0xDEADBEEF"`][deadbeef]
 * `format!("0o{:o}", foo)` -> `"0o33653337357"`
 
-The same variable (`foo`) can be formatted differently depending on which
-*argument type* is used: `X` vs `o` vs *unspecified*.
+La misma variable (`foo`) puede tener un formato diferente según el *tipo de argumento* 
+que se utilice: `X` vs. `o` vs. *ninguno*.
 
-This formatting functionality is implemented via traits, and there is one trait
-for each argument type. The most common formatting trait is `Display`, which
-handles cases where the argument type is left unspecified: `{}` for instance.
+Esta funcionalidad de formato se implementa mediante traits, y hay un trait para 
+cada tipo de argumento. El trait de formato más común es `Display`, que maneja los 
+casos en los que el tipo de argumento se deja sin especificar: `{}` por ejemplo.
 
 ```rust,editable
 use std::fmt::{self, Formatter, Display};
 
 struct City {
     name: &'static str,
-    // Latitude
+    // Latitud
     lat: f32,
-    // Longitude
+    // Longitud
     lon: f32,
 }
 
 impl Display for City {
-    // `f` is a buffer, and this method must write the formatted string into it
+    // `f` es un buffer, y este metodo debe escribir la cadena formateada en el
     fn fmt(&self, f: &mut Formatter) -> fmt::Result {
         let lat_c = if self.lat >= 0.0 { 'N' } else { 'S' };
         let lon_c = if self.lon >= 0.0 { 'E' } else { 'W' };
 
-        // `write!` is like `format!`, but it will write the formatted string
-        // into a buffer (the first argument)
+        // `write!` es como `format!`, pero escribirá la cadena formateada
+        // en un buffer (el primer argumento)
         write!(f, "{}: {:.3}°{} {:.3}°{}",
                self.name, self.lat.abs(), lat_c, self.lon.abs(), lon_c)
     }
@@ -43,6 +43,20 @@ struct Color {
     red: u8,
     green: u8,
     blue: u8,
+}
+impl Display for Color {
+   fn fmt(&self, f: &mut Formatter) -> fmt::Result {
+       // `write!` es como `format!`, pero escribirá la cadena formateada
+       // en un buffer (el primer argumento)
+       
+       let _R = format!("{:X}", self.red);
+       let _G = format!("{:X}", self.green);
+       let _B = format!("{:X}", self.blue);
+       
+       write!(f, "RGB ({}, {}, {}) 0x{:0>2}{:0>2}{:0>2}",
+              self.red, self.green, self.blue,
+              _R, _G, _B)
+   }
 }
 
 fn main() {
@@ -58,19 +72,21 @@ fn main() {
         Color { red: 0, green: 3, blue: 254 },
         Color { red: 0, green: 0, blue: 0 },
     ].iter() {
-        // Switch this to use {} once you've added an implementation
-        // for fmt::Display.
+        // Cambie esto para usar {} una vez que haya añadido una 
+        // implementación para fmt::Display.
         println!("{:?}", *color);
+#        println!("{}", *color);
     }
 }
 ```
 
-You can view a [full list of formatting traits][fmt_traits] and their argument
-types in the [`std::fmt`][fmt] documentation.
+Puede ver una [lista completa de traits de formato][fmt_traits] y sus tipos de 
+argumentos en su documentación [`std::fmt`][fmt].
 
-### Activity
-Add an implementation of the `fmt::Display` trait for the `Color` struct above
-so that the output displays as:
+### Actividad
+Añade una implementación del trait `fmt::Display` para la estructura `Color` 
+anterior de modo que la salida se muestre como:
+
 
 ```text
 RGB (128, 255, 90) 0x80FF5A
@@ -78,11 +94,11 @@ RGB (0, 3, 254) 0x0003FE
 RGB (0, 0, 0) 0x000000
 ```
 
-Two hints if you get stuck:
- * You [may need to list each color more than once][named_parameters],
- * You can [pad with zeros to a width of 2][fmt_width] with `:0>2`.
+Dos consejos si te quedas atascado:
+ * Puedes [necesitar listar cada color más de una vez][named_parameters],
+ * Puedes [rellenar con ceros hasta un ancho de 2][fmt_width] con `:0>2`.
 
-### See also:
+### Ver también:
 
 [`std::fmt`][fmt]
 

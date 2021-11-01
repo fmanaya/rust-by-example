@@ -1,14 +1,14 @@
 # Summary
 
-[Introduction](index.md)
+[Introducción](index.md)
 
-- [Hello World](hello.md)
-    - [Comments](hello/comment.md)
-    - [Formatted print](hello/print.md)
+- [Hola Mundo](hello.md)
+    - [Comentarios](hello/comment.md)
+    - [Impresión con formato](hello/print.md)
         - [Debug](hello/print/print_debug.md)
         - [Display](hello/print/print_display.md)
-            - [Testcase: List](hello/print/print_display/testcase_list.md)
-        - [Formatting](hello/print/fmt.md)
+            - [Caso de prueba: List](hello/print/print_display/testcase_list.md)
+        - [Formateando](hello/print/fmt.md)
 
 - [Primitives](primitives.md)
     - [Literals and operators](primitives/literals.md)

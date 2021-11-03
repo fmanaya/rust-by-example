@@ -44,20 +44,6 @@ struct Color {
     green: u8,
     blue: u8,
 }
-impl Display for Color {
-   fn fmt(&self, f: &mut Formatter) -> fmt::Result {
-       // `write!` es como `format!`, pero escribirá la cadena formateada
-       // en un buffer (el primer argumento)
-       
-       let _R = format!("{:X}", self.red);
-       let _G = format!("{:X}", self.green);
-       let _B = format!("{:X}", self.blue);
-       
-       write!(f, "RGB ({}, {}, {}) 0x{:0>2}{:0>2}{:0>2}",
-              self.red, self.green, self.blue,
-              _R, _G, _B)
-   }
-}
 
 fn main() {
     for city in [
@@ -75,7 +61,6 @@ fn main() {
         // Cambie esto para usar {} una vez que haya añadido una 
         // implementación para fmt::Display.
         println!("{:?}", *color);
-#        println!("{}", *color);
     }
 }
 ```
@@ -87,7 +72,6 @@ argumentos en su documentación [`std::fmt`][fmt].
 Añade una implementación del trait `fmt::Display` para la estructura `Color` 
 anterior de modo que la salida se muestre como:
 
-
 ```text
 RGB (128, 255, 90) 0x80FF5A
 RGB (0, 3, 254) 0x0003FE
@@ -95,7 +79,7 @@ RGB (0, 0, 0) 0x000000
 ```
 
 Dos consejos si te quedas atascado:
- * Puedes [necesitar listar cada color más de una vez][named_parameters],
+ * Puedes [necesitar usar cada color más de una vez][named_parameters],
  * Puedes [rellenar con ceros hasta un ancho de 2][fmt_width] con `:0>2`.
 
 ### Ver también:

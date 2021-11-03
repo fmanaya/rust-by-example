@@ -1,12 +1,5 @@
-# Tuplas
+use std::fmt::{self, Display, Formatter};
 
-Una tupla es una colección de valores de diferentes tipos. Las tuplas 
-se construyen utilizando paréntesis `()`, y cada tupla es un valor con 
-nombre de tipo `(T1, T2, ...)`, donde `T1`, `T2` son los tipos de sus 
-miembros. Las funciones pueden utilizar tuplas para devolver múltiples 
-valores, ya que las tuplas pueden contener cualquier número de valores.
-
-```rust,editable
 // Las tuplas se pueden utilizar como argumentos de funciones y como valores de retorno
 fn reverse(pair: (i32, bool)) -> (bool, i32) {
     // `let` puede utilizarse para vincular los miembros de una tupla a variables
@@ -14,17 +7,27 @@ fn reverse(pair: (i32, bool)) -> (bool, i32) {
 
     (boolean, integer)
 }
+//
+fn transpose(mat: Matrix) -> Matrix {
+    Matrix(mat.0, mat.2, mat.1, mat.3)
+}
 
 // La siguiente estructura es para la actividad.
 #[derive(Debug)]
 struct Matrix(f32, f32, f32, f32);
 
+impl Display for Matrix {
+    // `f` es un buffer, y este metodo debe escribir la cadena formateada en el
+    fn fmt(&self, f: &mut Formatter) -> fmt::Result {
+        write!(f, "({} {})\n({} {})", self.0, self.1, self.2, self.3)
+    }
+}
+
 fn main() {
     // Una tupla con un conjunto de tipos diferentes
-    let long_tuple = (1u8, 2u16, 3u32, 4u64,
-                      -1i8, -2i16, -3i32, -4i64,
-                      0.1f32, 0.2f64,
-                      'a', true);
+    let long_tuple = (
+        1u8, 2u16, 3u32, 4u64, -1i8, -2i16, -3i32, -4i64, 0.1f32, 0.2f64, 'a', true,
+    );
 
     // Los valores pueden extraerse de la tupla por su índice
     println!("long_tuple primer valor: {}", long_tuple.0);
@@ -35,7 +38,7 @@ fn main() {
 
     // Tuplas son imprimibles
     println!("tuple of tuples: {:?}", tuple_of_tuples);
-    
+
     // Pero tuplas grandes no lo son
     // let too_long_tuple = (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13);
     // println!("too long tuple: {:?}", too_long_tuple);
@@ -46,7 +49,7 @@ fn main() {
 
     println!("pais a la inversa es {:?}", reverse(pair));
 
-    // Para crear tuplas de un elemento, la coma es necesaria para 
+    // Para crear tuplas de un elemento, la coma es necesaria para
     // distinguirlas de un literal entre paréntesis
     println!("una tupla: {:?}", (5u32,));
     println!("simplemente un entero: {:?}", (5u32));
@@ -59,41 +62,8 @@ fn main() {
 
     let matrix = Matrix(1.1, 1.2, 2.1, 2.2);
     println!("{:?}", matrix);
-
+    println!("Matrix");
+    println!("{}", matrix);
+    println!("Transpose");
+    println!("{}", transpose(matrix));
 }
-```
-
-### Activity
-
- 1. *Para recordar*: Añade el rasgo `fmt::Display` a la estructura `Matrix` 
-    del ejemplo anterior, de modo que si se pasa de imprimir el formato de 
-    depuración `{:?}` al formato de visualización `{}`, se vea la siguiente 
-    salida:
-
-    ```text
-    ( 1.1 1.2 )
-    ( 2.1 2.2 )
-    ```
-
-    Quizá quieras consultar el ejemplo de [display][print_display].
- 2. Añade una función `transpose` utilizando la función `reverse` como plantilla, 
-    que acepta una matriz como argumento, y devuelve una matriz en la que dos 
-    elementos han sido intercambiados. Por ejemplo:
-
-    ```rust,ignore
-    println!("Matrix:\n{}", matrix);
-    println!("Transpose:\n{}", transpose(matrix));
-    ```
-
-    resultados en la salida:
-
-    ```text
-    Matrix:
-    ( 1.1 1.2 )
-    ( 2.1 2.2 )
-    Transpose:
-    ( 1.1 2.1 )
-    ( 1.2 2.2 )
-    ```
-
-[print_display]: ../hello/print/print_display.md

@@ -1,0 +1,9 @@
+:root {
+    --sidebar-bg: #af0505;
+    --sidebar-fg: rgb(255, 255, 255);
+    --sidebar-active: #ff841f;
+}
+
+.sidebar {
+    /* background-color: #af0505; */
+}

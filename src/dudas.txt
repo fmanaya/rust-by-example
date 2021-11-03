@@ -1,0 +1,56 @@
+https://rust-lang.github.io/mdBook/
+
+https://github.com/second-state/rust-by-example-ext
+
+
+
+hello.md
+--------
+código con tilde en comentarios dentro código fuente?  codigo/código, línea,...
+funcion main, se traduce como principal?
+binary->ejecutable
+
+comment.md
+----------
+
+Comments doc. Tambien los ignora el compilador?
+HTML Library documentation
+
+slashes? se traduce
+
+Library -> biblioteca?  libreria?...
+
+
+print
+-----
+
+trait-> caracteristica, aspecto
+
+modulo/trait ...
+
+fmt->modulo
+fmt::Display -> trait
+
+primitives
+------------
+
+array, matriz, tabla, arreglo
+unit type?
+
+tuplas
+------
+TODO?
+
+binding: enlace, vinculo, conexion
+you: tu o usted?
+
+
+Arrays y slices
+---------------
+no cambio array ni slice
+un Array
+una Slice
+
+type signature: definicion de tipo
+
+enlace https://doc.rust-lang.org/book/ch04-03-slices.html ¿?

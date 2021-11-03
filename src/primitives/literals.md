@@ -1,44 +1,44 @@
-# Literals and operators
+# Literales y operadores
 
-Integers `1`, floats `1.2`, characters `'a'`, strings `"abc"`, booleans `true`
-and the unit type `()` can be expressed using literals.
+Los tipos entero `1`, punto flotante `1.2`, carácter `'a'`, cadena de texto `"abc"`, boleano `true`
+y tipo unitario `()` se pueden expresar usando literales.
 
-Integers can, alternatively, be expressed using hexadecimal, octal or binary
-notation using these prefixes respectively: `0x`, `0o` or `0b`.
+Los enteros alternativamente pueden ser expresados con una notación
+hexadecimal, octal o binaria usando los respectivos prefijos : `0x`, `0o` or `0b`.
 
-Underscores can be inserted in numeric literals to improve readability, e.g.
-`1_000` is the same as `1000`, and `0.000_001` is the same as `0.000001`.
+El símbolo de subrayado se puede insertar en literales numéricos para mejorar la legibilidad, p.e.
+`1_000` es lo mismo que `1000`, y `0.000_001` es lo mismo que `0.000001`.
 
-We need to tell the compiler the type of the literals we use. For now,
-we'll use the `u32` suffix to indicate that the literal is an unsigned 32-bit
-integer, and the `i32` suffix to indicate that it's a signed 32-bit integer.
+Tenemos que indicar al compilador el tipo de los literales que utilizamos. Por ahora, 
+usaremos el sufijo `u32` para indicar que el literal es un entero de 32 bits sin signo 
+y el sufijo `i32` para indicar que es un entero de 32 bits con signo.
 
-The operators available and their precedence [in Rust][rust op-prec] are similar to other
-[C-like languages][op-prec].
+Los operadores disponibles y su precedencia [en Rust][rust op-prec] son similares a otros 
+[lenguajes como C][op-prec].
 
 ```rust,editable
 fn main() {
-    // Integer addition
+    // Suma de enteros
     println!("1 + 2 = {}", 1u32 + 2);
 
-    // Integer subtraction
+    // Resta de enteros
     println!("1 - 2 = {}", 1i32 - 2);
-    // TODO ^ Try changing `1i32` to `1u32` to see why the type is important
+    // TODO ^ Prueba a cambiar `1i32` por `1u32` para ver por qué el tipo es importante
 
-    // Short-circuiting boolean logic
-    println!("true AND false is {}", true && false);
-    println!("true OR false is {}", true || false);
-    println!("NOT true is {}", !true);
+    // Evaluación de cortocircuito en logica booleana
+    println!("verdadero AND falso es {}", true && false);
+    println!("verdadero OR falso es {}", true || false);
+    println!("NO verdadero es {}", !true);
 
-    // Bitwise operations
-    println!("0011 AND 0101 is {:04b}", 0b0011u32 & 0b0101);
-    println!("0011 OR 0101 is {:04b}", 0b0011u32 | 0b0101);
-    println!("0011 XOR 0101 is {:04b}", 0b0011u32 ^ 0b0101);
-    println!("1 << 5 is {}", 1u32 << 5);
-    println!("0x80 >> 2 is 0x{:x}", 0x80u32 >> 2);
+    // Operaciones bit a bit
+    println!("0011 AND 0101 es {:04b}", 0b0011u32 & 0b0101);
+    println!("0011 OR 0101 es {:04b}", 0b0011u32 | 0b0101);
+    println!("0011 XOR 0101 es {:04b}", 0b0011u32 ^ 0b0101);
+    println!("1 << 5 es {}", 1u32 << 5);
+    println!("0x80 >> 2 es 0x{:x}", 0x80u32 >> 2);
 
-    // Use underscores to improve readability!
-    println!("One million is written as {}", 1_000_000u32);
+    // Utilice guiones bajos para mejorar la legibilidad!
+    println!("Un millon se escribe como {}", 1_000_000u32);
 }
 ```
 

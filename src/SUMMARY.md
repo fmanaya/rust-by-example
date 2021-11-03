@@ -10,10 +10,10 @@
             - [Caso de prueba: List](hello/print/print_display/testcase_list.md)
         - [Formateando](hello/print/fmt.md)
 
-- [Primitives](primitives.md)
-    - [Literals and operators](primitives/literals.md)
-    - [Tuples](primitives/tuples.md)
-    - [Arrays and Slices](primitives/array.md)
+- [Primitivos](primitives.md)
+    - [Literales y operadores](primitives/literals.md)
+    - [Tuplas](primitives/tuples.md)
+    - [Arrays y Slices](primitives/array.md)
 
 - [Custom Types](custom_types.md)
     - [Structures](custom_types/structs.md)

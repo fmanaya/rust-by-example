@@ -15,7 +15,7 @@ Comencemos!
 
 - [Primitivos](primitives.md) - Aprende sobre los enteros con signo, los enteros sin signo y otros tipos primitivas.
 
-- [Custom Types](custom_types.md) - `struct` and `enum`.
+- [Tipos personalizados](custom_types.md) - `struct` y `enum`.
 
 - [Variable Bindings](variable_bindings.md) - mutable bindings, scope, shadowing.
 

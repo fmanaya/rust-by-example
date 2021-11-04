@@ -1,35 +1,37 @@
-# Enums
+# Enumerados
 
-The `enum` keyword allows the creation of a type which may be one of a few
-different variants. Any variant which is valid as a `struct` is also valid as
-an `enum`.
+La etiqueta `enum` permite la creación de un tipo que puede ser una de las 
+posibles variantes. Cualquier variante que sea válida como `struct` es también válida 
+como `enum`.
+
 
 ```rust,editable
-// Create an `enum` to classify a web event. Note how both
-// names and type information together specify the variant:
-// `PageLoad != PageUnload` and `KeyPress(char) != Paste(String)`.
-// Each is different and independent.
+// Crear un `enum` para clasificar un evento web. Observe cómo 
+// los nombres y la información del tipo especifican conjuntamente 
+// la variante:
+// `PageLoad != PageUnload` y `KeyPress(char) != Paste(String)`.
+// Cada uno es diferente e independiente.
 enum WebEvent {
-    // An `enum` may either be `unit-like`,
+    // Un `enum` puede ser tanto de tipo unitario
     PageLoad,
     PageUnload,
-    // like tuple structs,
+    // como structs de tupla
     KeyPress(char),
     Paste(String),
-    // or c-like structures.
+    // o como estructuras de C.
     Click { x: i64, y: i64 },
 }
 
-// A function which takes a `WebEvent` enum as an argument and
-// returns nothing.
+// Una función que tiene un enumerado de `WebEvent` como argumento y 
+// no devuelve nada.
 fn inspect(event: WebEvent) {
     match event {
         WebEvent::PageLoad => println!("page loaded"),
         WebEvent::PageUnload => println!("page unloaded"),
-        // Destructure `c` from inside the `enum`.
+        // Destructura `c` sdentro del `enum`.
         WebEvent::KeyPress(c) => println!("pressed '{}'.", c),
         WebEvent::Paste(s) => println!("pasted \"{}\".", s),
-        // Destructure `Click` into `x` and `y`.
+        // Destructura `Click` en `x` e `y`.
         WebEvent::Click { x, y } => {
             println!("clicked at x={}, y={}.", x, y);
         },
@@ -38,7 +40,7 @@ fn inspect(event: WebEvent) {
 
 fn main() {
     let pressed = WebEvent::KeyPress('x');
-    // `to_owned()` creates an owned `String` from a string slice.
+    // `to_owned()` crea una `String` propia a partir de una slice.
     let pasted  = WebEvent::Paste("my text".to_owned());
     let click   = WebEvent::Click { x: 20, y: 80 };
     let load    = WebEvent::PageLoad;
@@ -50,14 +52,10 @@ fn main() {
     inspect(load);
     inspect(unload);
 }
-
 ```
+## Alias de tipo
 
-## Type aliases
-
-If you use a type alias, you can refer to each enum variant via its alias.
-This might be useful if the enum's name is too long or too generic, and you
-want to rename it.
+Si utiliza un alias de tipo, puede referirse a cada variante del enumerado a través de su alias. Esto puede ser útil si el nombre del enumerado es demasiado largo o demasiado genérico, y usted desea renombrarlo.
 
 ```rust,editable
 enum VeryVerboseEnumOfThingsToDoWithNumbers {
@@ -65,17 +63,16 @@ enum VeryVerboseEnumOfThingsToDoWithNumbers {
     Subtract,
 }
 
-// Creates a type alias
+// Crea un alias de tipo
 type Operations = VeryVerboseEnumOfThingsToDoWithNumbers;
 
 fn main() {
-    // We can refer to each variant via its alias, not its long and inconvenient
-    // name.
+    // Podemos referirnos a cada variante a través de su alias, y no de su largo e inconveniente nombre.
     let x = Operations::Add;
 }
 ```
 
-The most common place you'll see this is in `impl` blocks using the `Self` alias.
+El lugar más común donde verás esto es en los bloques `impl` usando el alias `Self`.
 
 ```rust,editable
 enum VeryVerboseEnumOfThingsToDoWithNumbers {
@@ -93,13 +90,12 @@ impl VeryVerboseEnumOfThingsToDoWithNumbers {
 }
 ```
 
-To learn more about enums and type aliases, you can read the
-[stabilization report][aliasreport] from when this feature was stabilized into
-Rust.
+Para saber más sobre los enums y los alias de tipo, puede leer el
+[informe de estabilización][aliasreport] de cuando esta característica se estabilizó en Rust.
 
-### See also:
+### Ver también:
 
-[`match`][match], [`fn`][fn], and [`String`][str], ["Type alias enum variants" RFC][type_alias_rfc]
+[`match`][match], [`fn`][fn], and [`String`][str], ["Alias de tipo en variantes de enumerado" RFC][type_alias_rfc]
 
 [c_struct]: https://en.wikipedia.org/wiki/Struct_(C_programming_language)
 [match]: ../flow_control/match.md

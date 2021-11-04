@@ -15,9 +15,9 @@
     - [Tuplas](primitives/tuples.md)
     - [Arrays y Slices](primitives/array.md)
 
-- [Custom Types](custom_types.md)
-    - [Structures](custom_types/structs.md)
-    - [Enums](custom_types/enum.md)
+- [Tipos personalizados](custom_types.md)
+    - [Estructuras](custom_types/structs.md)
+    - [Enumerados](custom_types/enum.md)
         - [use](custom_types/enum/enum_use.md)
         - [C-like](custom_types/enum/c_like.md)
         - [Testcase: linked-list](custom_types/enum/testcase_linked_list.md)

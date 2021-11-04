@@ -49,8 +49,15 @@ Arrays y slices
 ---------------
 no cambio array ni slice
 un Array
-una Slice
+una Slice: trozo de cadena?
 
 type signature: definicion de tipo
 
 enlace https://doc.rust-lang.org/book/ch04-03-slices.html ¿?
+
+
+Custom types
+-------------
+estructuras: ¿desestructuracion anidada?
+keyword: etiqueta, palabra reservada
+unit struct: estructura unitaria

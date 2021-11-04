@@ -1,11 +1,11 @@
-# Structures
+# Estructuras
 
-There are three types of structures ("structs") that can be created using the
-`struct` keyword:
+Existen tres tipos de estructuras ("structs") que pueden crearse con la etiqueta `struct`:
 
-* Tuple structs, which are, basically, named tuples.
-* The classic [C structs][c_struct]
-* Unit structs, which are field-less, are useful for generics.
+* Structs de tupla, que son, básicamente, tuplas con nombre.
+* Las clásicas [estructuras de C][c_struct]
+* Las estructuras unitarias, que no tienen propiedades, son útiles para los genéricos.
+
 
 ```rust,editable
 #[derive(Debug)]
@@ -14,88 +14,90 @@ struct Person {
     age: u8,
 }
 
-// A unit struct
+// Una estructura unitaria
 struct Unit;
 
-// A tuple struct
+// Una estructura tupla
 struct Pair(i32, f32);
 
-// A struct with two fields
+// Una estructura con dos campos
 struct Point {
     x: f32,
     y: f32,
 }
 
-// Structs can be reused as fields of another struct
+// Las estructuras se pueden usar como campos de otra estructura
 #[allow(dead_code)]
 struct Rectangle {
-    // A rectangle can be specified by where the top left and bottom right
-    // corners are in space.
+    // Un rectángulo se puede definir por el lugar que ocupan en el 
+    // espacio las esquinas superior izquierda e inferior derecha.
     top_left: Point,
     bottom_right: Point,
 }
 
 fn main() {
-    // Create struct with field init shorthand
+    // Crea una estructura con atajo de inicializacion de campos
     let name = String::from("Peter");
     let age = 27;
     let peter = Person { name, age };
 
-    // Print debug struct
+    // Imprime la estructura modo debug
     println!("{:?}", peter);
 
 
-    // Instantiate a `Point`
+    // Instancia un `Point`
     let point: Point = Point { x: 10.3, y: 0.4 };
 
-    // Access the fields of the point
-    println!("point coordinates: ({}, {})", point.x, point.y);
+    // Accso a los campos de point
+    println!("coordenadas del punto: ({}, {})", point.x, point.y);
 
-    // Make a new point by using struct update syntax to use the fields of our
-    // other one
+    // Crear un nuevo punto utilizando la sintaxis struct update para 
+    // utilizar los campos de nuestro otro punto
     let bottom_right = Point { x: 5.2, ..point };
 
-    // `bottom_right.y` will be the same as `point.y` because we used that field
-    // from `point`
-    println!("second point: ({}, {})", bottom_right.x, bottom_right.y);
+    // `bottom_right.y` será el mismo que `point.y` porque hemos usado aquel campo
+    // de `point`
+    println!("segundo punto: ({}, {})", bottom_right.x, bottom_right.y);
 
-    // Destructure the point using a `let` binding
+    // Desestructurar point utilizando un enlace `let`.
     let Point { x: left_edge, y: top_edge } = point;
 
     let _rectangle = Rectangle {
-        // struct instantiation is an expression too
+        // La instanciación de la estructura también es una expresión
         top_left: Point { x: left_edge, y: top_edge },
         bottom_right: bottom_right,
     };
 
-    // Instantiate a unit struct
+    // Instancia una estructura unitaria
     let _unit = Unit;
 
-    // Instantiate a tuple struct
+    // Instancia una estructura de tupla
     let pair = Pair(1, 0.1);
 
-    // Access the fields of a tuple struct
-    println!("pair contains {:?} and {:?}", pair.0, pair.1);
+    // Acceso a los campos de una estructura de tupla
+    println!("pair contiene {:?} y {:?}", pair.0, pair.1);
 
-    // Destructure a tuple struct
+    // Destructura una estructura de tupla
     let Pair(integer, decimal) = pair;
 
-    println!("pair contains {:?} and {:?}", integer, decimal);
+    println!("pair contiene {:?} and {:?}", integer, decimal);
 }
 ```
 
-### Activity
+### Actividad
 
-1. Add a function `rect_area` which calculates the area of a `Rectangle` (try
-   using nested destructuring).
-2. Add a function `square` which takes a `Point` and a `f32` as arguments, and
-   returns a `Rectangle` with its lower left corner on the point, and a width and
-   height corresponding to the `f32`.
+1. Añade una función `rect_area` que calcule el área de un `Rectangle` 
+   (intenta utilizando la desestructuración anidada).
+2. Añade una función `square` que toma un `Point` y un `f32` como argumentos, 
+   y devuelve un `Rectangle` con su esquina inferior izquierda en el punto, 
+   y una anchura y altura correspondientes a `f32`.
 
-### See also
+### Ver también
 
-[`attributes`][attributes], and [destructuring][destructuring]
+[`atributos`][attributes] y [desestructurando][destructuring]
 
 [attributes]: ../attribute.md
 [c_struct]: https://en.wikipedia.org/wiki/Struct_(C_programming_language)
 [destructuring]: ../flow_control/match/destructuring.md
+
+#https://doc.rust-lang.org/book/ch05-01-defining-structs.html?highlight=struct#unit-like-structs-without-any-fields
